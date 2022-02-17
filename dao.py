@@ -47,14 +47,14 @@ class Dao:
     def search_room(self, keyword):
         sql = f"select * from room where uname like {quoted('%' + keyword + '%')}"
         self.cursor.execute(sql)
-        return self.cursor.fetchall()
+        return [{'room_id': room_id, 'uname': uname, 'face': face} for room_id, uname, face in self.cursor.fetchall()]
 
     def list_medal_names(self, room_id):
         sql = f"select medal_name, count(*) cnt from user where room_id = {room_id} and last_record > '{datetime.datetime.now() - datetime.timedelta(days = 1)}' group by medal_name order by cnt desc;"
         self.cursor.execute(sql)
-        return self.cursor.fetchall()
+        return [{'name': name, 'cnt': cnt} for name, cnt in self.cursor.fetchall()]
 
     def list_medal_levels(self, room_id, level_name):
         sql = f"select medal_level, count(*) from user where room_id = {room_id} and medal_name = {quoted(level_name)} and last_record > '{datetime.datetime.now() - datetime.timedelta(days = 1)}' group by medal_level order by medal_level;"
         self.cursor.execute(sql)
-        return self.cursor.fetchall()
+        return [{'level': level, 'cnt': cnt} for level, cnt in self.cursor.fetchall()]
