@@ -1,4 +1,3 @@
-from tkinter import N
 import pymysql
 import datetime
 import json
