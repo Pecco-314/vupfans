@@ -38,6 +38,11 @@ class Dao:
         else:
             return None
      
+    def get_rooms(self):
+        sql = f"select id from room;"
+        self.cursor.execute(sql)
+        return [i for (i,) in self.cursor.fetchall()]
+
     def select_latest(self, room_id, uid):
         sql = f"select max(last_record) from user where room_id={room_id} and uid={uid};"
         self.cursor.execute(sql)
