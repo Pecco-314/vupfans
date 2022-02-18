@@ -1,12 +1,11 @@
 import datetime
 import blivedm.blivedm as blivedm
-import dao
 from util import log
 
-async def run(room_id):
+async def run(room_id, dao):
     log(f"started observing {room_id}")
     client = blivedm.BLiveClient(room_id)
-    handler = MyHandler()
+    handler = MyHandler(dao)
     client.add_handler(handler)
     client.start()
 
@@ -16,8 +15,8 @@ async def run(room_id):
         await client.stop_and_close()
 
 class MyHandler(blivedm.BaseHandler):
-    def __init__(self):
-        self.dao = dao.Dao()
+    def __init__(self, dao):
+        self.dao = dao
 
     async def _on_danmaku(self, client: blivedm.BLiveClient, message: blivedm.DanmakuMessage):
         latest = self.dao.select_latest(client.room_id, message.uid)
