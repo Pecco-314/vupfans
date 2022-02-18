@@ -6,8 +6,6 @@ from util import log
 from dao import Dao
 
 dao = Dao()
-print(dao.get_rooms())
-exit(0)
 
 async def production_task():
     old_rooms = dao.get_rooms()
