@@ -49,11 +49,12 @@ CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `room_id` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL,
+  `medal_id` bigint(20) NOT NULL,
   `medal_name` varchar(10) NOT NULL,
   `medal_level` smallint(6) NOT NULL,
   `last_record` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `room_id` (`room_id`,`uid`,`last_record`)
+  UNIQUE KEY `record` (`medal_id`,`uid`,`last_record`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

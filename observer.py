@@ -22,4 +22,4 @@ class MyHandler(blivedm.BaseHandler):
         latest = self.dao.select_latest(client.room_id, message.uid)
         send_datetime = datetime.datetime.fromtimestamp(message.timestamp / 1000)
         if latest[0] is None or latest[0] + datetime.timedelta(hours=24) < send_datetime:
-            self.dao.add_user(client.room_id, message.uid, message.medal_name, message.medal_level, send_datetime)
+            self.dao.add_user(client.room_id, message.uid, message.medal_room_id, message.medal_name, message.medal_level, send_datetime)

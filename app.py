@@ -15,8 +15,11 @@ def list_medal_names():
 
 @app.route("/medallevels")
 def list_medal_levels():
-    return jsonify(dao.list_medal_levels(request.args.get('roomid'), request.args.get('medalname')))
+    return jsonify(dao.list_medal_levels(request.args.get('roomid'), request.args.get('medalid')))
 
 @app.route("/datetime")
 def last_update_datetime():
     return jsonify(f"{get_approximate_datetime():%Y-%m-%d %H:%M:%S}")
+
+if __name__=="__main__":
+    app.run(host="0.0.0.0", port=5000)

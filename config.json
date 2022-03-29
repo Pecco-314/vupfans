@@ -1,8 +1,8 @@
 {
     "db": {
         "host": "localhost",
-        "user": "debian-sys-maint",
-        "password": "ZqSyJXTw3yRp4rsA",
+        "user": "root",
+        "password": "123456789",
         "db": "vupfans"
     }
 }
