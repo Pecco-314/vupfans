@@ -1,8 +1,8 @@
 from dao import Dao
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from util import get_approximate_datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder = "../dist/static", template_folder = "../dist")
 dao = Dao()
 
 @app.route("/room")
@@ -20,6 +20,10 @@ def list_medal_levels():
 @app.route("/datetime")
 def last_update_datetime():
     return jsonify(f"{get_approximate_datetime():%Y-%m-%d %H:%M:%S}")
+
+@app.route('/')
+def index():
+    return render_template("index.html")
 
 if __name__=="__main__":
     app.run(host="0.0.0.0", port=5000)
