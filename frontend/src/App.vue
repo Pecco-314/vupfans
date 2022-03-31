@@ -35,7 +35,6 @@ export default {
     Card
   },
   metaInfo: {
-    title: 'Bilibili直播间粉丝牌成分查询',
     meta: [
       { name: 'referrer', content: 'no-referrer' },
     ] 

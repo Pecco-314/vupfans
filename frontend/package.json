@@ -10,6 +10,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@vue/cli": "^5.0.4",
+    "@vue/compiler-sfc": "^3.2.31",
     "axios": "^0.26.1",
     "element-ui": "^2.15.6",
     "eslint": "^8.12.0",
