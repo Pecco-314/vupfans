@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <el-image :src="item.face" />
+    <img :src="item.face" />
     <span class="info">
       <span class="uname">{{item.uname}}</span>
       <br />
@@ -34,21 +34,27 @@ export default {
   height: 100%;
   position: relative;
 }
-.el-card .el-image {
+.el-card img {
   height: 100%;
 }
 .el-card .info {
   margin-left: 15px;
+  white-space: nowrap; 
+  min-width: 0;
+  flex: 1;
 }
 .el-card .uname {
   font-size: 28px;
   font-weight: bold;
   color: #606266;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: inline-block;
 }
 .el-card .show {
   font-size: 28px;
   cursor: pointer;
-  position: absolute;
-  right: 15px;
 }
 </style>

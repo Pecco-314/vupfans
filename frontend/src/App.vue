@@ -26,6 +26,7 @@ export default {
   watch: {
     input: function (val) {
       this.loading = true;
+      this.list = [];
       axios.get(`http://124.222.81.160:5000/room?keyword=${val}`)
            .then(response => { this.list = response.data; this.loading = false; })
            .catch(error => console.error(error))
