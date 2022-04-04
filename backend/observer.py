@@ -1,16 +1,20 @@
 import datetime
 import blivedm.blivedm as blivedm
-from util import log
+from util import init_logger
+
+logger = init_logger()
 
 async def run(room_id, dao):
-    log(f"started observing {room_id}")
     client = blivedm.BLiveClient(room_id)
     handler = MyHandler(dao)
     client.add_handler(handler)
     client.start()
 
     try:
+        logger.info(f"started observing room {room_id}")
         await client.join()
+    except Exception as e:
+        logger.error(f"faild to observe room {room_id}, the message is: {e}")
     finally:
         await client.stop_and_close()
 

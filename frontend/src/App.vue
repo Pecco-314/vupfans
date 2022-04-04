@@ -4,8 +4,9 @@
       <el-input v-model="input" placeholder="搜索"></el-input>
       <el-skeleton :rows="6" animated v-show="loading" />
       <div v-for="item in list" :key=item.room_id>
-        <Card :item=item>
+        <Card :item=item @showButtonClicked="showDialog" />
       </div>
+      <Dialog :id=dialog.id :title=dialog.title @hiddenDialog=hiddenDialog />
     </div>
   </div>
 </template>
@@ -13,6 +14,7 @@
 <script>
 import axios from "axios";
 import Card from './components/Card'
+import Dialog from "./components/Dialog"
 
 export default {
   name: 'App',
@@ -21,6 +23,10 @@ export default {
       input: '',
       list: [],
       loading: false,
+      dialog: {
+        id: null,
+        title: '',
+      }
     }
   },
   watch: {
@@ -32,8 +38,18 @@ export default {
            .catch(error => console.error(error))
     }
   },
+  methods: {
+    showDialog(roomId, uname) {
+      this.dialog.id = roomId;
+      this.dialog.title = `「${uname}」直播间的粉丝牌分布`
+    },
+    hiddenDialog() {
+      this.dialog.id = null;
+    }
+  },
   components: {
-    Card
+    Card,
+    Dialog,
   },
   metaInfo: {
     meta: [

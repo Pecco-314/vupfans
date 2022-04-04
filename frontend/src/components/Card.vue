@@ -6,7 +6,7 @@
       <br />
       <el-link type="primary" class="room" icon="el-icon-video-play" href='`https://live.bilibili.com/${item.room_id}`'>进入直播间</el-link>
     </span>
-    <a class="show el-icon-view"></a>
+    <a class="show el-icon-view" @click="onShowButtonClicked"></a>
   </el-card>
 </template>
 
@@ -15,6 +15,11 @@ export default {
   name: "Card",
   data() {
     return {};
+  },
+  methods: {
+    onShowButtonClicked() {
+      this.$emit('showButtonClicked', this.item.room_id, this.item.uname);
+    }
   },
   props: ["item"],
 };

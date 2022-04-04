@@ -2,10 +2,12 @@ import asyncio
 from threading import Thread
 import spider
 import observer
-from util import log
+from util import init_logger
 from dao import Dao
+import aiohttp
 
 dao = Dao()
+logger = init_logger()
 
 async def production_task():
     old_rooms = dao.get_rooms()
@@ -13,7 +15,7 @@ async def production_task():
         asyncio.run_coroutine_threadsafe(observer.run(room, dao), thread_loop)
     while True:
         new_rooms = spider.update()
-        log(f"updated room list")
+        logger.info(f"updated room list")
         for room in new_rooms:
             asyncio.run_coroutine_threadsafe(observer.run(room, dao),
                         thread_loop)
