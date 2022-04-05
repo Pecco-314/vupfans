@@ -7,10 +7,18 @@
                 <el-link disabled v-else>（无粉丝牌）</el-link>
                 <span class="cnt-span">{{item.cnt}}</span>
             </template>
-            <!-- <el-table stripe>
-            </el-table> -->
+            <el-table :data=levelList>
+                <el-table-column
+                prop="level"
+                label="等级">
+                </el-table-column>
+                <el-table-column
+                prop="cnt"
+                label="数量">
+                </el-table-column>
+            </el-table>
         </el-collapse>
-        <el-pagination layout="prev, pager, next, jumper" :total="fullNameList.length" hide-on-single-page small @current-change="onCurrentPageChange">
+        <el-pagination layout="prev, pager, next" :total="fullNameList.length" hide-on-single-page small @current-change="onCurrentPageChange">
         </el-pagination>
     </el-dialog>
 </template>
@@ -22,6 +30,7 @@ export default {
   data() {
     return {
         fullNameList: [],
+        levelList: [],
         activeRoom: '',
         page: 1,
         pageSize: 10,
@@ -39,7 +48,7 @@ export default {
       onClose(done) {
           this.$emit("hiddenDialog");
           this.fullNameList = [];
-          this.activeName = '';
+          this.activeRoom = '';
           this.page = 1,
           done();
       }
@@ -51,6 +60,13 @@ export default {
                     .then(response => { this.fullNameList = response.data; })
                     .catch(error => console.error(error))
             }
+      },
+      activeRoom: function(val) {
+          if (val !== '') {
+            axios.get(`http://124.222.81.160:5000/medallevels?roomid=${this.id}&medalid=${val}`)
+                .then(response => { this.levelList = response.data; })
+                .catch(error => console.error(error))   
+          }
       }
   },
   props: [
@@ -74,4 +90,11 @@ export default {
     margin-top: 15px;
 }
 
+.el-table >>> .el-table__cell {
+    text-align: center;
+}
+
+.el-table >>> .cell {
+    text-align: center;
+}
 </style>
